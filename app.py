@@ -20,7 +20,7 @@ def create_sequences(data, seq_length):
     return np.array(X), np.array(y)
 
 # Streamlit app
-st.title('LSTM Synthetic Tariff Prediction')
+st.title('Tariff Prediction App')
 
 # Generate and prepare the data
 data = create_synthetic_data()
@@ -55,6 +55,21 @@ ax.legend()
 # Show the plot in Streamlit
 st.pyplot(fig)
 
-# Show predictions
-st.write('Predicted Tariffs:')
-st.dataframe(pd.DataFrame(predicted_tariffs, columns=['Predicted Tariff']))
+# Additional Plot: Highlight Low and High Tariff Regions
+threshold = np.mean(actual_tariffs)  # Set a threshold as the mean of actual tariffs
+low_tariff_indices = np.where(actual_tariffs < threshold)[0]
+high_tariff_indices = np.where(actual_tariffs >= threshold)[0]
+
+# Plotting low and high tariff regions
+fig2, ax2 = plt.subplots(figsize=(14, 7))
+ax2.plot(actual_tariffs, label='Actual Tariffs', color='gray')
+ax2.scatter(low_tariff_indices, actual_tariffs[low_tariff_indices], color='green', label='Low Tariff', marker='o', alpha=0.6)
+ax2.scatter(high_tariff_indices, actual_tariffs[high_tariff_indices], color='red', label='High Tariff', marker='x', alpha=0.6)
+ax2.axhline(threshold, color='orange', linestyle='--', label='Mean Tariff Threshold')
+ax2.set_title('Low and High Tariff Regions')
+ax2.set_xlabel('Time Steps')
+ax2.set_ylabel('Tariff Values')
+ax2.legend()
+
+# Show the second plot in Streamlit
+st.pyplot(fig2)
