@@ -76,7 +76,7 @@ if 'model' in locals():
     fig2, ax2 = plt.subplots(figsize=(14, 7))
     ax2.plot(actual_tariffs, label='Actual Tariffs', color='gray')
     ax2.scatter(low_tariff_indices, actual_tariffs[low_tariff_indices], color='green', label='Low Tariff', marker='o', alpha=0.6)
-    ax2.scatter(high_tariff_indices, actual_tariff_indices, color='red', label='High Tariff', marker='x', alpha=0.6)
+    ax2.scatter(high_tariff_indices, actual_tariffs[high_tariff_indices], color='red', label='High Tariff', marker='x', alpha=0.6)  # Corrected variable name
     ax2.axhline(threshold, color='orange', linestyle='--', label='Mean Tariff Threshold')
     ax2.set_title('Low and High Tariff Regions')
     ax2.set_xlabel('Time Steps')
