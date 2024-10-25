@@ -40,8 +40,14 @@ model = load_model('best_model.keras')  # Load your model here
 
 # Make predictions
 predictions = model.predict(X)
+
+# Inverse transform and ensure non-negative values
 predicted_tariffs = scaler.inverse_transform(predictions)
+predicted_tariffs = np.abs(predicted_tariffs)  # Ensure predicted tariffs are non-negative
+
+# Inverse transform actual tariffs and ensure non-negative values
 actual_tariffs = scaler.inverse_transform(y.reshape(-1, 1))
+actual_tariffs = np.abs(actual_tariffs)  # Ensure actual tariffs are non-negative
 
 # Plotting results
 fig, ax = plt.subplots(figsize=(14, 7))
