@@ -36,7 +36,7 @@ X, y = create_sequences(data_scaled, SEQ_LENGTH)
 X = X.reshape(X.shape[0], X.shape[1], 1)  # (samples, time steps, features)
 
 # Load the pre-trained LSTM model
-model = load_model('lstm_model.keras')
+model = load_model('best_model.keras')
 
 # Make predictions
 predictions = model.predict(X)
